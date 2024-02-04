@@ -1,5 +1,6 @@
 from PyQt6.QtWidgets import QMainWindow, QApplication, QPushButton
 import sys
+from src.student import Student
 
 class MainWindow(QMainWindow):
     def __init__(self):
