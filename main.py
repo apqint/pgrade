@@ -1,14 +1,9 @@
-from PyQt6.QtWidgets import QMainWindow, QApplication, QPushButton
+from src.window import main_panel
+from PyQt6.QtWidgets import QApplication
+import ctypes
 import sys
-from src.student import Student
-
-class MainWindow(QMainWindow):
-    def __init__(self):
-        super().__init__()
-        self.setWindowTitle("PGrade")
-        self.show()
-
 
 app = QApplication(sys.argv)
-w = MainWindow()
+ctypes.windll.shell32.SetCurrentProcessExplicitAppUserModelID(u'apqint.pgrade.app') # workaround to get the icon on the taskbar
+w = main_panel.LoginWindow()
 app.exec()

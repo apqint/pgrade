@@ -4,12 +4,15 @@ import re
 class Student:
     def __init__(self, idnp) -> None:
         self.idnp = idnp
+        self.completed = False
+        self.payload = {"code": 0}
 
     def getData(self):
         response = requests.post("https://api.ceiti.md/date/login", data={"idnp": str(self.idnp)})
         content = response.content
         payload = {"code": 0}
         if b'method="post"' in content:
+            self.completed = True
             return {"code": 405, "motiv": "INDP Invalid"}
         # the data is in bytes, .decote('utf-8') brings it back to unicode
         payload['nume'] = re.findall(b"<th>Numele</th>\n.*<td>(.*?)</td>", content)[0].decode('utf-8')
@@ -55,5 +58,6 @@ class Student:
                 payload['examene'][index][exam_name.decode('utf-8')] = float(exam_grade.replace(b'---', b'0'))
         payload['code'] = 200
         self.payload = payload
+        self.completed = True
         return payload
 

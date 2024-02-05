@@ -1,2 +1,5 @@
 venv/
 src/__pycache__
+src/panels/__pycache__
+*.psd
+data.json
